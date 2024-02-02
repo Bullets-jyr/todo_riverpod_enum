@@ -17,15 +17,15 @@ class TodoHeader extends ConsumerWidget {
       children: [
         Row(
           children: [
-            Text(
+            const Text(
               'TODO',
               style: TextStyle(fontSize: 36.0),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
               '($activeTodoCount/${todoListState.todos.length} item${activeTodoCount != 1 ? "s" : ""}) items left)',
               style: TextStyle(
-                fontSize: 18.0,
+                fontSize: 12.0,
                 color: Colors.blue[900],
               ),
             )
