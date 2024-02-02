@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:todo_riverpod_enum/pages/providers/active_todo_count/active_todo_count_provider.dart';
 import 'package:todo_riverpod_enum/pages/providers/theme/theme_provider.dart';
 import 'package:todo_riverpod_enum/pages/providers/todo_list/todo_list_provider.dart';
@@ -19,6 +20,12 @@ class TodoHeader extends ConsumerWidget {
     // final activeTodoCount = ref.watch(activeTodoCountProvider);
     final todoListState = ref.watch(todoListProvider);
     final activeTodoCount = getActiveTodoCount(todoListState.todos);
+
+    if (todoListState.status == TodoListStatus.loading) {
+      context.loaderOverlay.show();
+    } else {
+      context.loaderOverlay.hide();
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
