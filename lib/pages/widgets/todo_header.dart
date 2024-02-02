@@ -10,7 +10,7 @@ class TodoHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeTodoCount = ref.watch(activeTodoCountProvider);
-    final todos = ref.watch(todoListProvider);
+    final todoListState = ref.watch(todoListProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,7 +23,7 @@ class TodoHeader extends ConsumerWidget {
             ),
             SizedBox(width: 10),
             Text(
-              '($activeTodoCount/${todos.length} item${activeTodoCount != 1 ? "s" : ""}) items left)',
+              '($activeTodoCount/${todoListState.todos.length} item${activeTodoCount != 1 ? "s" : ""}) items left)',
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.blue[900],
@@ -31,11 +31,22 @@ class TodoHeader extends ConsumerWidget {
             )
           ],
         ),
-        IconButton(
-          onPressed: () {
-            ref.read(themeProvider.notifier).toggleTheme();
-          },
-          icon: const Icon(Icons.light_mode),
+        Row(
+          children: [
+            IconButton(
+              onPressed: () {
+                ref.read(themeProvider.notifier).toggleTheme();
+              },
+              icon: const Icon(Icons.light_mode),
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+              onPressed: () {
+                ref.read(todoListProvider.notifier).getTodos();
+              },
+              icon: const Icon(Icons.refresh),
+            ),
+          ],
         ),
       ],
     );
